@@ -25,3 +25,11 @@ jobs:
 
       - name: Push the Docker image to GitHub Container Registry
         run: docker push ghcr.io/haydensookchand/js-docker-image:latest
+
+      - name: Deploy to GCP VM
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.GCP_VM_SSH_KEY }}
+        run: |
+          echo "${GCP_VM_SSH_KEY}" > id_rsa
+          chmod 600 id_rsa
+          ssh -o StrictHostKeyChecking=no -i id_rsa haydensookchand@gmail.com "docker login ghcr.io -u haydensookchand -p ${{ secrets.GHCR_TOKEN }} && docker pull ghcr.io/haydensookchand/hello-docker-gcr:latest && docker run -d -p 80:80 -p 443:443 -p 5001:5001 ghcr.io/haydensookchand/hello-docker-gcr:latest"
