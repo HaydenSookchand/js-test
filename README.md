@@ -36,7 +36,17 @@ So that I can deploy my Docker application to GCP.
   — Create and configure a Google Cloud project. 
   — Set up a service account with appropriate permissions. 
 
-**User Story 2: Deploy Application to Google Cloud**
+**User Story 2:  Implement CI/CD Pipeline**
+As a developer,
+I want to set up a CI/CD pipeline that automates the deployment of my Docker application to GCP,
+So that deployments are automated and consistent.
+ — Design the CI/CD pipeline workflow.
+ — Implement the CI/CD pipeline using GitHub Actions (or another tool).
+ — Configure environment variables and secrets.
+ — Test the pipeline for successful build and deployment.
+
+
+**User Story 3: Deploy Application to Google Cloud**
 As a developer,
 I want to deploy my Docker application to a Google Compute Engine VM,
 So that the application is running and accessible on GCP.
