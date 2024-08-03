@@ -8,23 +8,27 @@ import {
 } from "./testdata";
 import { providers } from "./config";
 import axios from "axios";
+import { enhanceMetadata } from "./utils";
 
 const app = express();
 const port = 3000;
 
 app.get("/microgaming/game/:gameCode/metadata", (req, res) => {
   const gameCode = req.params.gameCode;
-  res.json(microgamingMetadata[gameCode]);
+  const metadata = enhanceMetadata(microgamingMetadata[gameCode]);
+  res.json(metadata);
 });
 
 app.get("/playtech/game/:gameCode/metadata", (req, res) => {
   const gameCode = req.params.gameCode;
-  res.json(playtechMetadata[gameCode]);
+  const metadata = enhanceMetadata(playtechMetadata[gameCode]);
+  res.json(metadata);
 });
 
 app.get("/pragmatic/game/:gameCode/metadata", (req, res) => {
   const gameCode = req.params.gameCode;
-  res.json(pragmaticMetadata[gameCode]);
+  const metadata = enhanceMetadata(pragmaticMetadata[gameCode]);
+  res.json(metadata);
 });
 
 app.get("/games/all", async (req, res) => {
@@ -39,14 +43,14 @@ app.get("/games/all", async (req, res) => {
 app.get("/games/:gameCode", async (req, res) => {
   const gameCode = req.params.gameCode;
 
-  // Iterate over each provider to find the game metadata
   for (const provider of Object.values(providers)) {
     try {
-      const metadata = await axios.get<GameMetadata>(
+      const response = await axios.get<GameMetadata>(
         `${provider.baseUrl}/game/${gameCode}/metadata`
       );
-      if (metadata.data) {
-        return res.json(metadata.data);
+      if (response.data) {
+        const metadata = enhanceMetadata(response.data);
+        return res.json(metadata);
       }
     } catch (error) {
       continue;

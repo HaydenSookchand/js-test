@@ -1,6 +1,6 @@
 import axios from "axios";
 import { providers } from "./config";
-import { GameMetadata } from "./testdata";
+import { GameMetadata, additionalMetadata } from "./testdata";
 
 async function fetchMetadata(
   baseUrl: string,
@@ -13,10 +13,21 @@ async function fetchMetadata(
     return response.data;
   } catch (error) {
     console.error(
-      `Error fetching metadata for game ${gameCode} from ${baseUrl}:`
+      `Error fetching metadata for game ${gameCode} from ${baseUrl}:`,
+      error
     );
     throw error;
   }
+}
+
+function mergeMetadata(
+  gameMetadata: GameMetadata,
+  additionalMetadata: Partial<GameMetadata>
+): GameMetadata {
+  return {
+    ...gameMetadata,
+    ...additionalMetadata,
+  };
 }
 
 async function fetchAllProviders(): Promise<GameMetadata[]> {
@@ -24,7 +35,11 @@ async function fetchAllProviders(): Promise<GameMetadata[]> {
 
   for (const provider of Object.values(providers)) {
     for (const gameCode of provider.gameCodes) {
-      fetchPromises.push(fetchMetadata(provider.baseUrl, gameCode));
+      fetchPromises.push(
+        fetchMetadata(provider.baseUrl, gameCode).then((metadata) =>
+          mergeMetadata(metadata, additionalMetadata[gameCode] || {})
+        )
+      );
     }
   }
 
@@ -40,4 +55,4 @@ async function fetchAllProviders(): Promise<GameMetadata[]> {
   return fulfilledResults;
 }
 
-export { fetchAllProviders };
+export { fetchAllProviders, mergeMetadata };
