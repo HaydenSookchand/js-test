@@ -6,7 +6,8 @@ I have an application that is packaged in a Docker image and stored on ghcr.io. 
 I want to have it deployed to Google Cloud Platform in a manner that is easy to script during a CI/CD process. The deployed version does not need to be auto-scaling or behind a firewall.
 
 # Answer
-Broken down to tasks on Asana. https://app.asana.com/0/1207970559637903/1207970559637906
+[Broken down to tasks on Asana](https://app.asana.com/0/1207970559637903/1207970559637906)
+![Alt text](https://github.com/HaydenSookchand/js-test/blob/main/screenshots/asana-board.png "Asana Board")
 
 ****Epic** Deploy Docker Application to Google Cloud Platform with CI/CD**
 I have an application that is packaged in a Docker image and stored on ghcr.io. The application exposes a standard HTTPS webserver on port 443 and a custom TCP/IP connection on port 5001.
