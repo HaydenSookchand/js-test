@@ -40,6 +40,13 @@ So that I can deploy my Docker application to GCP.
 Where to go: https://console.cloud.google.com/
 ![Alt text](https://github.com/HaydenSookchand/js-test/blob/main/screenshots/gcp-home.png "Google Cloud Home")
 
+Potential Issues:  
+Misconfiguring IAM roles or permissions can lead to deployment failures. 
+Requires upgrade to paid account.
+Ensure that the service account has the necessary permissions, such as Compute Engine Admin and Storage Admin if using Google Cloud Storage for artifacts.
+
+Tools: Google Cloud Console, Google Cloud SDK (gcloud).
+
 **User Story 2:  Implement CI/CD Pipeline**
 As a developer, I want to set up a CI/CD pipeline that automates the deployment of my Docker application to GCP,
 
@@ -50,6 +57,11 @@ So that deployments are automated and consistent.
  — Test the pipeline for successful build and deployment.
  Where to go: https://github.com/HaydenSookchand/js-test/blob/main/.github/workflows/docker-image.yml
 ![Alt text](https://github.com/HaydenSookchand/js-test/blob/main/screenshots/github-actions-passing.png "Github Actions Passing")
+
+Potential Issues: 
+Managing secrets and environment variables securely is crucial. Additionally, network configurations or firewalls may block the pipeline's ability to communicate with GCP.
+
+Tools: GitHub Actions, Secrets management in GitHub, Docker, SSH for remote deployment.
 
 **User Story 3: Deploy Application to Google Cloud**
 As a developer,
@@ -63,4 +75,7 @@ Where to go: https://console.cloud.google.com/.  and https://104.154.114.249/
 ![Alt text](https://github.com/HaydenSookchand/js-test/blob/main/screenshots/running-app-before.png "App Before")
 ![Alt text](https://github.com/HaydenSookchand/js-test/blob/main/screenshots/running-app-after.png "App After")
 
+Potential Issues: 
+Networking issues, such as misconfigured firewall rules or wrong IP bindings, could prevent access to the application. Monitoring and logging should be set up to diagnose any runtime issues.
 
+Tools: Google Compute Engine, Docker
