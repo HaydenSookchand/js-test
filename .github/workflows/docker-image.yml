@@ -40,4 +40,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i id_rsa haydensookchand@104.154.114.249 \
           "docker login ghcr.io -u haydensookchand -p ${{ secrets.GHCR_TOKEN }} && \
           docker pull ghcr.io/haydensookchand/js-docker-image:latest && \
+          docker ps --filter 'publish=5001' -q | xargs -r docker stop && \
+          docker ps -a --filter 'publish=5001' -q | xargs -r docker rm && \
           docker run -d -p 80:80 -p 443:443 -p 5001:5001 ghcr.io/haydensookchand/js-docker-image:latest"
