@@ -1,0 +1,15 @@
+{
+  "name": "docker-test-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-docker": "docker build -t docker-test-example .",
+    "start-docker": "docker run -p 443:443 -p 5001:5001 docker-test-example"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
