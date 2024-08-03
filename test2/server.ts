@@ -1,44 +1,35 @@
 import express from "express";
 import axios from "axios";
 import { fetchAllProviders } from "./fetchData";
-import {
-  microgamingMetadata,
-  playtechMetadata,
-  pragmaticMetadata,
-} from "./mockData/gameData";
 import { GameMetadata } from "./mockData/GameMetadata";
 import { providers } from "./config";
-import { enhanceMetadata } from "./utils";
+import { MetadataContext } from "./strategies/MetadataContext";
+import { MicrogamingStrategy } from "./strategies/MicrogamingStrategy";
+import { PlaytechStrategy } from "./strategies/PlaytechStrategy";
+import { PragmaticStrategy } from "./strategies/PragmaticStrategy";
 
 const app = express();
 const port = 3000;
 
-const getMetadataByProvider = (
-  providerMetadata: Record<string, GameMetadata>,
-  gameCode: string
-) => {
-  return providerMetadata[gameCode]
-    ? enhanceMetadata(providerMetadata[gameCode])
-    : null;
-};
-
 app.get("/:provider/game/:gameCode/metadata", (req, res) => {
   const { provider, gameCode } = req.params;
-  let metadata: GameMetadata | null = null;
+  let context: MetadataContext;
 
   switch (provider) {
     case "microgaming":
-      metadata = getMetadataByProvider(microgamingMetadata, gameCode);
+      context = new MetadataContext(new MicrogamingStrategy());
       break;
     case "playtech":
-      metadata = getMetadataByProvider(playtechMetadata, gameCode);
+      context = new MetadataContext(new PlaytechStrategy());
       break;
     case "pragmatic":
-      metadata = getMetadataByProvider(pragmaticMetadata, gameCode);
+      context = new MetadataContext(new PragmaticStrategy());
       break;
     default:
       return res.status(404).json({ message: "Provider not found." });
   }
+
+  const metadata = context.getMetadata(gameCode);
 
   if (metadata) {
     res.json(metadata);
@@ -65,7 +56,7 @@ app.get("/games/:gameCode", async (req, res) => {
         `${provider.baseUrl}/game/${gameCode}/metadata`
       );
       if (response.data) {
-        const metadata = enhanceMetadata(response.data);
+        const metadata = response.data;
         return res.json(metadata);
       }
     } catch (error) {
