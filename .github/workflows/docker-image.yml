@@ -26,6 +26,11 @@ jobs:
       - name: Push the Docker image to GitHub Container Registry
         run: docker push ghcr.io/haydensookchand/js-docker-image:latest
 
+      - name: Stop and remove any existing containers using port 5001
+        run: |
+          docker ps --filter "publish=5001" -q | xargs -r docker stop
+          docker ps -a --filter "publish=5001" -q | xargs -r docker rm
+
       - name: Deploy to GCP VM.
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GCP_VM_SSH_KEY }}
