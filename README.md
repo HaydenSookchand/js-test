@@ -35,6 +35,7 @@ I want to set up a Google Cloud environment with necessary configurations,
 So that I can deploy my Docker application to GCP.
   — Create and configure a Google Cloud project. 
   — Set up a service account with appropriate permissions. 
+Where to go: https://console.cloud.google.com/
 
 **User Story 2:  Implement CI/CD Pipeline**
 As a developer,
@@ -44,6 +45,7 @@ So that deployments are automated and consistent.
  — Implement the CI/CD pipeline using GitHub Actions (or another tool).
  — Configure environment variables and secrets.
  — Test the pipeline for successful build and deployment.
+ Where to go:
 
 
 **User Story 3: Deploy Application to Google Cloud**
@@ -53,6 +55,7 @@ So that the application is running and accessible on GCP.
 — Create a Google Compute Engine VM and deploy the Docker container.
 — Set up firewall rules to allow traffic on ports 443 and 5001.
 — Validate that the application is running and accessible.
+Where to go: 
 
 
 
