@@ -1,7 +1,14 @@
 import axios from "axios";
 import { providers } from "./config";
-import { GameMetadata, additionalMetadata } from "./testdata";
+import { GameMetadata } from "./mockData/GameMetadata";
+import { additionalMetadata } from "./mockData/additionalMetaData";
 
+/**
+ * Fetch metadata for a specific game from a provider's API.
+ * @param baseUrl - The base URL of the provider's API.
+ * @param gameCode - The game code for which to fetch metadata.
+ * @returns The fetched game metadata.
+ */
 async function fetchMetadata(
   baseUrl: string,
   gameCode: string
@@ -20,9 +27,15 @@ async function fetchMetadata(
   }
 }
 
+/**
+ * Merges additional metadata into the base game metadata.
+ * @param gameMetadata - The base game metadata.
+ * @param additionalMetadata - The additional metadata to merge.
+ * @returns The merged game metadata.
+ */
 function mergeMetadata(
   gameMetadata: GameMetadata,
-  additionalMetadata: Partial<GameMetadata>
+  additionalMetadata: Partial<GameMetadata> = {}
 ): GameMetadata {
   return {
     ...gameMetadata,
@@ -30,29 +43,27 @@ function mergeMetadata(
   };
 }
 
+/**
+ * Fetch metadata for all games across all providers.
+ * @returns A list of game metadata objects with additional data merged.
+ */
 async function fetchAllProviders(): Promise<GameMetadata[]> {
-  const fetchPromises: Promise<GameMetadata>[] = [];
-
-  for (const provider of Object.values(providers)) {
-    for (const gameCode of provider.gameCodes) {
-      fetchPromises.push(
-        fetchMetadata(provider.baseUrl, gameCode).then((metadata) =>
-          mergeMetadata(metadata, additionalMetadata[gameCode] || {})
-        )
-      );
-    }
-  }
+  const fetchPromises = Object.values(providers).flatMap((provider) =>
+    provider.gameCodes.map((gameCode) =>
+      fetchMetadata(provider.baseUrl, gameCode).then((metadata) =>
+        mergeMetadata(metadata, additionalMetadata[gameCode])
+      )
+    )
+  );
 
   const results = await Promise.allSettled(fetchPromises);
 
-  const fulfilledResults = results
+  return results
     .filter(
       (result): result is PromiseFulfilledResult<GameMetadata> =>
         result.status === "fulfilled"
     )
     .map((result) => result.value);
-
-  return fulfilledResults;
 }
 
 export { fetchAllProviders, mergeMetadata };
