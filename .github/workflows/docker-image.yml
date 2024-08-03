@@ -26,7 +26,7 @@ jobs:
       - name: Push the Docker image to GitHub Container Registry
         run: docker push ghcr.io/haydensookchand/js-docker-image:latest
 
-      - name: Deploy to GCP VM
+      - name: Deploy to GCP VM.
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GCP_VM_SSH_KEY }}
         run: |
