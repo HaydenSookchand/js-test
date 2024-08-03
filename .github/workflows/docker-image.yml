@@ -30,6 +30,6 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GCP_VM_SSH_KEY }}
         run: |
-          echo "${GCP_VM_SSH_KEY}" > id_rsa
+          echo "${SSH_PRIVATE_KEY}" > id_rsa
           chmod 600 id_rsa
-          ssh -o StrictHostKeyChecking=no -i id_rsa haydensookchand "docker login ghcr.io -u haydensookchand -p ${{ secrets.GHCR_TOKEN }} && docker pull ghcr.io/haydensookchand/hello-docker-gcr:latest && docker run -d -p 80:80 -p 443:443 -p 5001:5001 ghcr.io/haydensookchand/hello-docker-gcr:latest"
+          ssh -o StrictHostKeyChecking=no -i id_rsa haydensookchand@104.154.114.249 "docker login ghcr.io -u haydensookchand -p ${{ secrets.GHCR_TOKEN }} && docker pull ghcr.io/haydensookchand/js-docker-image:latest && docker run -d -p 80:80 -p 443:443 -p 5001:5001 ghcr.io/haydensookchand/js-docker-image:latest"
