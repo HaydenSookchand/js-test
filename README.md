@@ -25,6 +25,7 @@ So that the application can be deployed consistently across environments.
 — Push the Docker image to GitHub Container Registry (ghcr.io).
 — Validate the image in the registry.
 
+For the purpose of this, I have added a simple one here: https://github.com/users/HaydenSookchand/packages/container/package/js-docker-test-example
 
 ---------------------------
 
