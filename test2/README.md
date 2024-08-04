@@ -15,8 +15,19 @@ The output from the API should be JSON as an array containing all the games.
 
 ## Epic - Implement Game Metadata API
 
-**User Story 1: **
+**User Story 1: Design API Spec**
 
-**User Story 2: Implement CI/CD Pipeline**
+**User Story 2: Fetch Metadata from Individual Game Servers**
+As a developer,
+I want to fetch metadata for each game from the respective game servers using their APIs,
+So that I can gather the basic metadata needed for each game.
 
-**User Story 3: Deploy Application to Google Cloud**
+**User Story 3: Enhance Metadata with Additional Information**
+As a developer,
+I want to enhance the fetched metadata with additional information such as the game thumbnail URL, release date, and available countries,
+So that the metadata provided by the API is comprehensive and includes all necessary details.
+
+**User Story 4: Combine Metadata into a Single JSON Response**
+As a developer,
+I want to combine the fetched and enhanced metadata into a single JSON array,
+So that I can provide a structured and comprehensive response to the API request.
