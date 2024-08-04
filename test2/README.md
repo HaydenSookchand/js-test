@@ -32,3 +32,5 @@ So that the metadata provided by the API is comprehensive and includes all neces
 As a developer,
 I want to combine the fetched and enhanced metadata into a single JSON array,
 So that I can provide a structured and comprehensive response to the API request.
+![Alt text](https://github.com/HaydenSookchand/js-test/blob/main/screenshots/api%20response.png "API Response")
+
