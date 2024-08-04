@@ -1,5 +1,13 @@
 # js-test
 
+To Run
+In this folder run 
+  'npm install'
+  'npm run dev'
+
+  Navigate to http://localhost:3000/games/all/ and play around with the API
+
+  
 # Test 2:
 
 We need to implement a new API call to return the meta-data for each game. Most of the meta-data can be fetched as JSON from an API to each individual game server.  
