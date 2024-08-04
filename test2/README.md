@@ -16,6 +16,7 @@ The output from the API should be JSON as an array containing all the games.
 ## Epic - Implement Game Metadata API
 
 **User Story 1: Design API Spec**
+https://github.com/HaydenSookchand/js-test/blob/main/test2/Game%20Catalogue%20API
 
 **User Story 2: Fetch Metadata from Individual Game Servers**
 As a developer,
